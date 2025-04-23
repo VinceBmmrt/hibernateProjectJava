@@ -21,11 +21,18 @@ public class Main {
 
         Session session = sf.openSession();
 
-
-        Laptop laptop = session.byId(Laptop.class).getReference(2);
-        System.out.println(laptop);
-
+        Laptop l1 = session.get(Laptop.class, 2);
+        System.out.println(l1);
         session.close();
+
+
+        Session session1 = sf.openSession();
+
+        Laptop l2 = session1.get(Laptop.class, 2);
+        System.out.println(l2);
+
+        session1.close();
+
 
         sf.close();
 
