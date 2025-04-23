@@ -22,22 +22,8 @@ public class Main {
         Session session = sf.openSession();
 
 
-        String brand = "Asus";
-        // select * from laptop where ram = 32 => SQL
-        // from Laptop where ram = 32 => HQL
-        Query query = session.createQuery("select brand, model from Laptop where brand like ?1");
-        query.setParameter(1, brand);
-        List<Object[]> laptops = query.getResultList();
-
-        for (Object[] data : laptops) {
-            System.out.println((String) data[0] + " " + data[1]);
-        }
-
-
-        // Laptop l1 = session.get(Laptop.class, 3);
-
-
-        System.out.println(laptops);
+        Laptop laptop = session.byId(Laptop.class).getReference(2);
+        System.out.println(laptop);
 
         session.close();
 
