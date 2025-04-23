@@ -23,20 +23,43 @@ public class Main {
         l2.setModel("Premium");
         l2.setRam(32);
 
+        Laptop l3 = new Laptop();
+        l3.setLid(3);
+        l3.setBrand("Apple");
+        l3.setModel("Mac");
+        l3.setRam(32);
 
         Alien a1 = new Alien();
         a1.setAid(101);
         a1.setAname("chewbaka");
         a1.setTech("Java");
-        a1.setLaptops(Arrays.asList(l1, l2));
 
-        l1.setAlien(a1);
-        l2.setAlien(a1);
+
+        Alien a2 = new Alien();
+        a2.setAid(102);
+        a2.setAname("ET");
+        a2.setTech("Next");
+
+
+        Alien a3 = new Alien();
+        a3.setAid(103);
+        a3.setAname("Missa");
+        a3.setTech("Node");
+
+
+        a1.setLaptops(Arrays.asList(l1, l2));
+        a2.setLaptops(Arrays.asList(l2, l3));
+        a3.setLaptops(Arrays.asList(l1));
+
+        l1.setAliens(Arrays.asList(a1, a3));
+        l2.setAliens(Arrays.asList(a1, a2));
+        l3.setAliens(Arrays.asList(a2));
+
 
         SessionFactory sf = new Configuration()
+                .configure()
                 .addAnnotatedClass(com.telusko.Alien.class)
                 .addAnnotatedClass(com.telusko.Laptop.class)
-                .configure()
                 .buildSessionFactory();  //cfg.buildSessionFactory();
 
         Session session = sf.openSession();
@@ -45,13 +68,16 @@ public class Main {
 
         session.persist(l1);
         session.persist(l2);
+        session.persist(l3);
+
         session.persist(a1);
+        session.persist(a2);
+        session.persist(a3);
 
         transaction.commit();
 
-        Alien a2 = session.get(Alien.class, 101);
-        System.out.println(a2);
-
+        Alien a5 = session.get(Alien.class, 102);
+        System.out.println(a5);
         session.close();
         sf.close();
 
